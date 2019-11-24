@@ -30,7 +30,7 @@ def TransactionType():
 
 def createStatement(num_transactions):
     statement = []
-    for i in range(num_transactions):
+    for _ in range(num_transactions):
         statement.append(getTransaction())
     return statement
     
@@ -43,5 +43,5 @@ def createCSV(numofstatements,k):
             csvfile.close()
         
 
-createCSV(5,5)
+createCSV(20,50)
 

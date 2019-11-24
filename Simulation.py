@@ -7,23 +7,23 @@ from DatabaseAPI import Database
 database = Database("transactions.db")
 transactions = database.get_data()
 
-def compute_score(transactions):
+def compute_score(transactions, company_id):
+    
     purchases = 0
     returns = 0
     return_counter = 0
-    for purchase in transactions[0]:
-        purchases += purchase
+    for purchase in transactions[company_id][0]:
+        purchases += int(purchase[1])
     
-    for return_item in transactions[1]:
-        returns += return_item
-        return_counter += 0
+    for return_item in transactions[company_id][1]:
+        returns += int(return_item[1])
+        return_counter += 1
     
-    return_frc = (returns / purchases) * return_counter
+    return_frc = (returns / purchases)
     score = 1 - return_frc
     return score
 
 ids = list(transactions.keys())
 for company_id in ids:
-    database.update_score(company_id, compute_score(transactions[company_id]))
-
+    print(company_id, compute_score(transactions, company_id))
     
