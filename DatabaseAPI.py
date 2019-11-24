@@ -33,19 +33,24 @@ class Database(object):
 
     def update_score(self, company_id, new_score):
         self.c.execute(f'''UPDATE scores
-                        SET Score = {new_score}
-                        WHERE ID = {company_id}''')
+                        SET Score = \'{new_score}\'
+                        WHERE ID = \'{company_id}\'''')
+        self.conn.commit()
 
     def add_company(self, new_company, website, company_id, score):
-        values = f"({new_company}, {website}, {company_id}, {score})"
+        values = f"(\'{new_company}\',\'{website}\',\'{company_id}\',\'{score}\')"
+        print(values)
         self.c.execute(f"INSERT INTO scores VALUES {values}")
+        self.conn.commit()
 
     def get_company_data(self, company_id):
-        self.c.execute(f"SELECT * FROM scores WHERE ID = {company_id}")
+        self.c.execute(f"SELECT * FROM scores WHERE ID = \'{company_id}\'")
         return self.c.fetchall()
 
     def company_exists(self, company_id):
-        name = self.c.execute(f"SELECT 1 FROM scores WHERE ID = \'{company_id}\''")
+        string = f"SELECT * FROM scores WHERE ID = \'{company_id}\'"
+        print(string)
+        name = self.c.execute(string).fetchone()
         return len(name) != 0
 
     def get_data(self):
