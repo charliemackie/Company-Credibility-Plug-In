@@ -1,8 +1,11 @@
 from DatabaseAPI import Database
 
 database = Database("transactions.db")
+'''
+for i in range(20):
+    database.import_csv("csvfilled" + str(i) + ".csv")
+'''
 transactions = database.get_data()
-
 def compute_score(transactions, company_id):
     purchases = 0
     returns = 0
@@ -29,5 +32,4 @@ for company_id in ids:
             if not database.company_exists(company_id):
                 database.add_company(line[1], line[2].strip(), company_id, round(compute_score(transactions, company_id) * 100, 1))
             else:
-                print('here')
                 database.update_score(company_id, round(compute_score(transactions, company_id) * 100, 1))

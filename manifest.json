@@ -2,7 +2,7 @@
   "name": "Vault",
   "version": "1.0",
   "description": "This is a chrome extension that secures the user from suspicious online transactions!",
-  "permissions": ["activeTab", "declarativeContent", "storage"],
+  "permissions": ["activeTab", "declarativeContent", "storage", "tabs"],
   "background": {
     "scripts": ["background.js"],
     "persistent": false

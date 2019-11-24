@@ -51,6 +51,8 @@ class Database(object):
         string = f"SELECT * FROM scores WHERE ID = \'{company_id}\'"
         print(string)
         name = self.c.execute(string).fetchone()
+        if (name == None):
+            return False
         return len(name) != 0
 
     def get_data(self):
